@@ -63,14 +63,14 @@ export default function MenuClient({ products }: { products: Product[] }) {
     }
 
     return (
-        <main className="min-h-screen pb-20 text-white selection:bg-amber-500/30" style={{ background: '#090909' }}>
+        <main className="min-h-screen pb-20 my text-white selection:bg-amber-500/30" style={{ background: '#090909' }}>
             
             {/* Ambient Background Glow */}
             <div className="fixed top-0 left-1/2 -translate-x-1/2 w-full h-[500px] opacity-10 pointer-events-none"
                 style={{ background: 'radial-gradient(circle at 50% 0%, #d4a853 0%, transparent 70%)' }} />
 
             {/* Header */}
-            <header className={`relative pt-16 pb-12 text-center transition-all duration-1000 ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4'}`}>
+            <header className={`relative pt-23 pb-15 text-center transition-all duration-1000 ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4'}`}>
                 <h1 className="text-6xl font-serif tracking-tighter italic">
                     Tetra<span className="text-amber-500 not-italic">.</span>
                 </h1>
