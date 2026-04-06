@@ -4,6 +4,18 @@
 
 @custom-variant dark (&:is(.dark *));
 
+/* ===== Tetra Brand Colors ===== */
+:root {
+  --tetra-gold: #d4a853;
+  --tetra-gold-light: #fef3dc;
+  --tetra-gold-dark: #8b6914;
+  --tetra-gold-muted: rgba(212, 168, 83, 0.4);
+  --tetra-gold-subtle: rgba(212, 168, 83, 0.08);
+  --tetra-bg: #0b0803;
+  --tetra-bg-card: rgba(18, 10, 1, 0.98);
+  --tetra-border: rgba(212, 168, 83, 0.1);
+}
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -123,6 +135,7 @@
   }
   body {
     @apply bg-background text-foreground;
+    background: var(--tetra-bg);
   }
   html {
     @apply font-sans;

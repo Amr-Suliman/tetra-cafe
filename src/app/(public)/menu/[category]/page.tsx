@@ -3,51 +3,66 @@ import { Product } from '@/types'
 import Image from 'next/image'
 import Link from 'next/link'
 
+const SLUG_TO_CATEGORY: Record<string, string> = {
+  'hot-drinks': 'Hot Drinks',
+  'cold-drinks': 'Cold Drinks',
+  'desserts': 'Desserts',
+}
+
+const CATEGORY_TO_SLUG: Record<string, string> = {
+  'Hot Drinks': 'hot-drinks',
+  'Cold Drinks': 'cold-drinks',
+  'Desserts': 'desserts',
+}
+
 export default async function CategoryPage({
   params,
 }: {
   params: Promise<{ category: string }>
 }) {
   const { category } = await params
-  const decodedCategory = decodeURIComponent(category)
+  const categoryName = SLUG_TO_CATEGORY[category] ?? category
 
   const supabase = await createSupabaseServerClient()
   const { data: products } = await supabase
     .from('products')
     .select('*')
     .eq('is_available', true)
-    .eq('category', decodedCategory)
+    .eq('category', categoryName)
 
   return (
-    <main className="min-h-screen text-white" style={{ background: '#0a0600' }}>
+    <main className="min-h-screen text-white" style={{ background: 'var(--tetra-bg)' }}>
+
       {/* Header */}
       <div className="sticky top-0 z-20 px-4 py-4 flex items-center gap-4"
         style={{
-          background: 'rgba(10,6,0,0.9)',
+          background: 'rgba(6,4,0,0.9)',
           backdropFilter: 'blur(20px)',
-          borderBottom: '1px solid rgba(200,169,126,0.1)',
+          borderBottom: '1px solid var(--tetra-border)',
         }}
       >
-        <Link href="/menu" className="text-[#c8a97e] hover:opacity-70 transition-opacity">
-          ← Back
+        <Link href="/menu" className="hover:opacity-70 transition-opacity"
+          style={{ color: 'var(--tetra-gold)' }}>
+          ←
         </Link>
-        <h1 className="text-lg font-semibold text-[#c8a97e] tracking-widest uppercase">
-          {decodedCategory}
+        <h1 className="text-base font-semibold tracking-widest uppercase"
+          style={{ color: 'var(--tetra-gold)' }}>
+          {categoryName}
         </h1>
       </div>
 
       {/* Products */}
-      <div className="max-w-2xl mx-auto px-4 py-8 space-y-3">
+      <div className="max-w-2xl mx-auto px-4 py-6 space-y-3">
         {products?.map((product: Product) => (
           <Link
             key={product.id}
-            href={`/menu/${encodeURIComponent(decodedCategory)}/${encodeURIComponent(product.name)}`}
+            href={`/menu/${category}/${product.name.toLowerCase().replace(/ /g, '-')}`}
           >
             <div
-              className="flex gap-4 rounded-2xl overflow-hidden transition-all duration-300 cursor-pointer"
+              className="flex gap-4 rounded-2xl overflow-hidden transition-all duration-300 hover:scale-[1.01]"
               style={{
-                background: 'linear-gradient(135deg, rgba(30,18,4,0.9), rgba(20,12,2,0.9))',
-                border: '1px solid rgba(200,169,126,0.08)',
+                background: 'var(--tetra-bg-card)',
+                border: '1px solid var(--tetra-border)',
               }}
             >
               {product.image_url && (
@@ -61,22 +76,23 @@ export default async function CategoryPage({
                 </div>
               )}
               <div className="flex-1 p-4 flex flex-col justify-center">
-                <h2 className="text-base font-semibold text-white">{product.name}</h2>
-                <p className="text-xs mt-1 leading-relaxed"
-                  style={{ color: 'rgba(200,169,126,0.5)' }}>
+                <h2 className="text-base font-semibold text-white/90">{product.name}</h2>
+                <p className="text-xs mt-1 leading-relaxed text-white/40">
                   {product.description}
                 </p>
-                <p className="text-[#c8a97e] font-bold mt-2">{product.price} EGP</p>
+                <p className="font-bold mt-2 text-sm" style={{ color: 'var(--tetra-gold)' }}>
+                  {product.price} EGP
+                </p>
               </div>
               <div className="flex items-center pr-4">
-                <span style={{ color: 'rgba(200,169,126,0.4)' }}>›</span>
+                <span className="text-white/20 text-lg">›</span>
               </div>
             </div>
           </Link>
         ))}
 
         {products?.length === 0 && (
-          <p className="text-center py-20" style={{ color: 'rgba(200,169,126,0.3)' }}>
+          <p className="text-center py-20 text-white/20">
             No items in this category yet
           </p>
         )}
