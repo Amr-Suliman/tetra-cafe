@@ -5,7 +5,6 @@ import { Product } from '@/types'
 import Image from 'next/image'
 import Link from 'next/link'
 
-// 1. التعريفات الأساسية (Categories)
 const CATEGORIES = [
     {
         name: 'Hot Drinks',
@@ -45,8 +44,7 @@ const CATEGORIES = [
 
 export default function MenuClient({ products }: { products: Product[] }) {
     const [visible, setVisible] = useState(false)
-    
-    // تأكد من وجود داتا حتى لو الـ props فاضية عشان ميرميش error
+
     const allProducts = products?.length > 0 ? products : []
     const favorites = allProducts.filter(p => p.is_favorite)
 
@@ -54,7 +52,6 @@ export default function MenuClient({ products }: { products: Product[] }) {
         setVisible(true)
     }, [])
 
-    // دالة لتوليد الرابط بشكل سليم
     const getProductHref = (p: Product) => {
         const cat = CATEGORIES.find(c => c.name === p.category)
         const categorySlug = cat?.slug || p.category.toLowerCase().replace(/ /g, '-')
@@ -64,7 +61,7 @@ export default function MenuClient({ products }: { products: Product[] }) {
 
     return (
         <main className="min-h-screen pb-20 my text-white selection:bg-amber-500/30" style={{ background: '#090909' }}>
-            
+
             {/* Ambient Background Glow */}
             <div className="fixed top-0 left-1/2 -translate-x-1/2 w-full h-[500px] opacity-10 pointer-events-none"
                 style={{ background: 'radial-gradient(circle at 50% 0%, #d4a853 0%, transparent 70%)' }} />
@@ -79,7 +76,7 @@ export default function MenuClient({ products }: { products: Product[] }) {
             </header>
 
             <div className="max-w-6xl mx-auto px-4 md:px-8 space-y-20">
-                
+
                 {/* 1. Favorites Slider Section */}
                 {favorites.length > 0 && (
                     <section>
@@ -93,7 +90,7 @@ export default function MenuClient({ products }: { products: Product[] }) {
                             </span>
                         </div>
 
-                        <div 
+                        <div
                             className="flex gap-6 overflow-x-auto pb-10 snap-x snap-mandatory hide-scrollbar"
                             style={{ scrollbarWidth: 'none' }}
                         >
@@ -104,14 +101,14 @@ export default function MenuClient({ products }: { products: Product[] }) {
                                     className="flex-shrink-0 w-[300px] md:w-[380px] snap-center group"
                                 >
                                     <div className="relative aspect-[16/10] rounded-[1.7rem] overflow-hidden border border-white/5 transition-all duration-500 group-hover:border-amber-500/30 shadow-2xl">
-                                        <Image 
-                                            src={p.image_url} 
-                                            alt={p.name} 
-                                            fill 
+                                        <Image
+                                            src={p.image_url}
+                                            alt={p.name}
+                                            fill
                                             className="object-cover transition-transform duration-1000 group-hover:scale-110"
                                         />
                                         <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/20 to-transparent opacity-80" />
-                                        
+
                                         <div className="absolute bottom-0 left-0 p-8 w-full">
                                             <div className="flex justify-between items-end">
                                                 <div>
@@ -136,7 +133,7 @@ export default function MenuClient({ products }: { products: Product[] }) {
                         <h2 className="text-xl font-light tracking-widest uppercase">The Menu</h2>
                         <div className="h-px flex-grow bg-white/5" />
                     </div>
-                    
+
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                         {CATEGORIES.map(cat => (
                             <Link
@@ -146,7 +143,7 @@ export default function MenuClient({ products }: { products: Product[] }) {
                             >
                                 {/* Animated background element on hover */}
                                 <div className="absolute -right-4 -bottom-4 w-24 h-24 bg-amber-500/5 rounded-full blur-2xl group-hover:bg-amber-500/10 transition-all" />
-                                
+
                                 <div className="relative z-10 w-14 h-14 rounded-2xl bg-white/5 flex items-center justify-center text-amber-500 group-hover:scale-110 group-hover:bg-amber-500 group-hover:text-black transition-all duration-500">
                                     {cat.icon}
                                 </div>

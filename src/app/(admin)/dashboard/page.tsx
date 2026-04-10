@@ -15,7 +15,7 @@ export default async function DashboardPage() {
 
       <div className="max-w-6xl mx-auto relative z-10">
         {/* Header Section */}
-        <header className="mb-16">
+        <header className="mb-10">
           <div className="flex items-center gap-3 mb-4">
             <div className="h-px w-8 bg-amber-500/50" />
             <span className="text-[10px] tracking-[0.5em] text-amber-500/70 uppercase font-bold">Administration</span>

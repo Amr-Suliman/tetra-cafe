@@ -40,10 +40,10 @@ export default function EditProductPage() {
     try {
       await supabase
         .from('products')
-        .update({ 
-          ...form, 
+        .update({
+          ...form,
           price: Number(form.price),
-          updated_at: new Date().toISOString() 
+          updated_at: new Date().toISOString()
         })
         .eq('id', id)
 
@@ -59,7 +59,7 @@ export default function EditProductPage() {
   // Handle Delete logic
   const handleDelete = async () => {
     if (!confirm('Are you sure you want to remove this masterpiece from the menu?')) return
-    
+
     setLoading(true)
     await supabase.from('products').delete().eq('id', id)
     router.push('/products')
@@ -83,7 +83,7 @@ export default function EditProductPage() {
         </header>
 
         <div className="space-y-8 bg-white/[0.02] border border-white/5 p-8 md:p-10 rounded-[2.5rem] backdrop-blur-sm">
-          
+
           {/* Form Grid */}
           <div className="grid grid-cols-1 gap-6">
             {[
@@ -122,13 +122,13 @@ export default function EditProductPage() {
           </div>
 
           {/* Availability Toggle */}
-          <div 
+          <div
             className="flex items-center justify-between p-5 rounded-2xl bg-white/[0.02] border border-white/5 cursor-pointer hover:bg-white/[0.04] transition-all"
             onClick={() => setForm({ ...form, is_available: !form.is_available })}
           >
             <span className="text-xs uppercase tracking-widest text-white/60">Available in Store</span>
             <div className={`w-12 h-6 rounded-full relative transition-colors duration-300 ${form.is_available ? 'bg-amber-500' : 'bg-white/10'}`}>
-               <div className={`absolute top-1 w-4 h-4 rounded-full bg-black transition-all duration-300 ${form.is_available ? 'left-7' : 'left-1'}`} />
+              <div className={`absolute top-1 w-4 h-4 rounded-full bg-black transition-all duration-300 ${form.is_available ? 'left-7' : 'left-1'}`} />
             </div>
           </div>
 
@@ -154,9 +154,9 @@ export default function EditProductPage() {
 
         {/* Footer Signature */}
         <footer className="mt-12 text-center">
-           <p className="text-[8px] tracking-[0.8em] text-white/5 uppercase italic">
-              Tetra Luxury Management Systems
-           </p>
+          <p className="text-[8px] tracking-[0.8em] text-white/5 uppercase italic">
+            Tetra Luxury Management Systems
+          </p>
         </footer>
       </div>
     </main>

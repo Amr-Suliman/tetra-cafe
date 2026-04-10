@@ -8,7 +8,6 @@ export default function Navbar({ showBack, backHref }: { showBack?: boolean; bac
   const [sidebarOpen, setSidebarOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
 
-  // تأثير بسيط لما المستحدم ينزل لتحت الخلفية تتقل شوية
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20)
     window.addEventListener('scroll', handleScroll)
